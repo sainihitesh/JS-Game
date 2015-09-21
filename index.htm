@@ -1,0 +1,114 @@
+<html>
+<title>Rocket Game</title>
+<head>
+ <style type="text/css">
+     html{background: url("assets/bk.gif");}    
+     img#obstacle{position: absolute;margin-left: 0px;margin-top: 0px;}
+</style> 
+</head>    
+<body id="body" style="opacity:0" onload="show()">
+    <img id="img" src="assets/rk.gif" alt='rocket' style="position:absolute;left:0;top:0"/>
+    
+</body>
+ <script type="application/javascript">
+    throwballs();
+     var obs= document.getElementById("obstacle");
+        obs.style.left=window.innerWidth+"px";
+    var body = document.getElementById("body");
+        body.addEventListener("keydown",moverocket);
+     function show()
+     {
+       var body = document.getElementById("body");
+           body.style.opacity= 1;               
+     }
+     
+     function moverocket(evt){
+                              var move;
+                              var left;
+                              var top;
+                              var right;
+                              var bottom;   
+                              if(evt.keyCode==39)
+                               {
+                                 //right arrow
+                                 move=document.getElementById("img");
+                                 left= parseInt(/[0-9]+/.exec(move.style.left));
+                                  if(window.innerWidth>left)
+                                  {
+                                     left+=4;  
+                                     move.style.left=left+"px"; 
+                                    
+                                  }
+                                   
+                                   
+                               }
+                             else if(evt.keyCode==40)
+                              {
+                               //arrow down
+                                 move=document.getElementById("img");
+                                 top= parseInt(/[0-9]+/.exec(move.style.top));
+                                 if(window.innerHeight>top)
+                                 {
+                                    top+=4;
+                                    move.style.top=top+"px";  
+                                 }
+                               
+                               }
+                             else if(evt.keyCode==37)
+                               {
+                                  //left arrow
+                                 move=document.getElementById("img");
+                                 right= parseInt(/[0-9]+/.exec(move.style.left));
+                                 right-=4;
+                                 move.style.left=right+"px"; 
+                               }
+                             else if(evt.keyCode==38)
+                               {
+                                  //up arrow
+                                 move=document.getElementById("img");
+                                 top= parseInt(/[0-9]+/.exec(move.style.top));
+                                 top-=4;
+                                 move.style.top=top+"px";
+                               }   
+                           
+                             }        
+    function throwballs(){
+                             var img = new Image;
+                                 img.src="assets/obst1.gif";
+                                 img.alt="Keep Distance";
+                                 img.id ="obstacle";  
+                                 document.body.appendChild(img);
+                                 
+                          }
+    function moveball(ball)
+                         { 
+                            var r; 
+                            var rk=document.getElementById("img"); 
+                            var obs=document.getElementById("obstacle"); 
+                            right= parseInt(/[-0-9]+/.exec(ball.style.left));
+                            var rkl= parseInt(/[-0-9]+/.exec(rk.style.left))+100;
+                            var obsl=parseInt(/[-0-9]+/.exec(obs.style.left)); 
+                            if(right>0)
+                            {
+                               if(rkl==obsl)
+                                {
+                                    var rkls= parseInt(/[-0-9]+/.exec(rk.style.top));
+                                    var obsls=parseInt(/[-0-9]+/.exec(obs.style.top)); 
+                                    if((obsls>(rkls-80))&&(obsls<(rkls+35)))
+                                    alert("Game Over");   
+                                }
+                               right=right-2;
+                               ball.style.left=right+"px"; 
+                                
+                            }
+                            else
+                                {
+                                ball.style.top= parseInt(300*Math.random());    
+                                ball.style.left=1200+"px";     
+                                }
+                            
+                         } 
+     
+setInterval(function(){moveball(document.getElementById("obstacle"))},10);     
+</script>    
+</html>
